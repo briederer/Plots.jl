@@ -57,8 +57,13 @@ function unicodeplots_rebuild(plt::Plot{UnicodePlotsBackend})
         for ann in sp[:annotations]
             x, y, val = locate_annotation(sp, ann...)
             o = UnicodePlots.annotate!(
-                o, x, y, val.str;
-                color = up_color(val.font.color), halign = val.font.halign, valign = val.font.valign
+                o,
+                x,
+                y,
+                val.str;
+                color = up_color(val.font.color),
+                halign = val.font.halign,
+                valign = val.font.valign,
             )
         end
 
@@ -82,7 +87,9 @@ end
 function addUnicodeSeries!(
     sp::Subplot{UnicodePlotsBackend},
     up::UnicodePlots.Plot,
-    kw, series, addlegend::Bool,
+    kw,
+    series,
+    addlegend::Bool,
 )
     st = series[:seriestype]
 
@@ -106,7 +113,7 @@ function addUnicodeSeries!(
             series[:z].surf;
             zlabel = sp[:colorbar_title],
             colormap = cmap,
-            kw...
+            kw...,
         )
     elseif st == :spy
         return UnicodePlots.spy(series[:z].surf; kw...)
@@ -131,8 +138,13 @@ function addUnicodeSeries!(
 
     for (xi, yi, str, fnt) in EachAnn(series[:series_annotations], x, y)
         up = UnicodePlots.annotate!(
-            up, xi, yi, str;
-            color = up_color(fnt.color), halign = fnt.halign, valign = fnt.valign
+            up,
+            xi,
+            yi,
+            str;
+            color = up_color(fnt.color),
+            halign = fnt.halign,
+            valign = fnt.valign,
         )
     end
 
