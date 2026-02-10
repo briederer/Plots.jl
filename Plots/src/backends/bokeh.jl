@@ -8,14 +8,13 @@ should_warn_on_unsupported(::BokehBackend) = false
 # Create the window/figure for this backend.
 function _create_backend_figure(plt::Plot{BokehBackend})
     # Create a Bokeh figure
-    # The figure will be created when Bokeh functions are called
-    return plt.o = Bokeh.Figure()
+    return plt.o = Bokeh.figure()
 end
 
 # Initialize subplot
 function _initialize_subplot(plt::Plot{BokehBackend}, sp::Subplot{BokehBackend})
     # Bokeh typically works with a single figure
-    # Subplots could be handled via gridplot or layout
+    # Multiple subplots could be handled via grid layout
     return nothing
 end
 
@@ -31,14 +30,15 @@ function _series_added(plt::Plot{BokehBackend}, series::Series)
     x, y = series[:x], series[:y]
     
     # Handle different series types
+    # Bokeh.jl uses plot!(figure, PlotType; kwargs...)
     if st === :path || st === :line
-        Bokeh.line!(fig, x, y)
+        Bokeh.plot!(fig, Bokeh.Line; x, y)
     elseif st === :scatter
-        Bokeh.scatter!(fig, x, y)
+        Bokeh.plot!(fig, Bokeh.Scatter; x, y)
     else
         # For unsupported series types, fall back to line
-        @debug "Series type $st not fully supported in Bokeh backend, using line"
-        Bokeh.line!(fig, x, y)
+        @debug "Series type $st not fully supported in Bokeh backend, using Line"
+        Bokeh.plot!(fig, Bokeh.Line; x, y)
     end
     
     return nothing
@@ -47,15 +47,16 @@ end
 # Update plot attributes before display
 function _update_plot_object(plt::Plot{BokehBackend})
     # Update title, labels, etc.
+    # Bokeh figure properties can be set directly
     for sp in plt.subplots
         if !isempty(sp[:title])
-            plt.o.title = string(sp[:title])
+            plt.o.title = Bokeh.Title(; text = string(sp[:title]))
         end
         if !isempty(sp[:xaxis][:guide])
-            plt.o.xaxis_label = string(sp[:xaxis][:guide])
+            plt.o.xaxis.axis_label = string(sp[:xaxis][:guide])
         end
         if !isempty(sp[:yaxis][:guide])
-            plt.o.yaxis_label = string(sp[:yaxis][:guide])
+            plt.o.yaxis.axis_label = string(sp[:yaxis][:guide])
         end
     end
     return nothing
@@ -63,7 +64,7 @@ end
 
 # Display the plot
 function _display(plt::Plot{BokehBackend})
-    return Bokeh.show(plt.o)
+    return display(plt.o)
 end
 
 # Define supported attributes for Bokeh
