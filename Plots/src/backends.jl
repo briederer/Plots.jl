@@ -58,6 +58,7 @@ function _check_compat(m::Module; warn = true)
 end
 
 const _backend_paths = Dict{Symbol, RelocatableFolders.Path}(
+    :bokeh => @path(joinpath(@__DIR__, "backends", "bokeh.jl")),
     :gaston => @path(joinpath(@__DIR__, "backends", "gaston.jl")),
     :gr => @path(joinpath(@__DIR__, "backends", "gr.jl")),
     :hdf5 => @path(joinpath(@__DIR__, "backends", "hdf5.jl")),
@@ -270,7 +271,7 @@ else
 end
 
 const _deprecated_backends =
-    [:qwt, :winston, :bokeh, :gadfly, :immerse, :glvisualize, :pgfplots]
+    [:qwt, :winston, :gadfly, :immerse, :glvisualize, :pgfplots]
 
 # ---------------------------------------------------------
 
@@ -326,6 +327,7 @@ function merge_with_base_supported(v::AVec)
     return Set(v)
 end
 
+@init_backend Bokeh
 @init_backend PyPlot
 @init_backend PythonPlot
 @init_backend UnicodePlots

@@ -54,18 +54,18 @@ This document is meant to be a guide and introduction to make that choice.
 
 My favorites: `GR` for speed, `Plotly(JS)` for interactivity, `UnicodePlots` for REPL/SSH and `PythonPlot` otherwise.
 
-| If you require...         | then use...                                 |
-| :------------------------ | :------------------------------------------ |
-| features                  | GR, PythonPlot, Plotly(JS), Gaston          |
-| speed                     | GR, UnicodePlots, InspectDR, Gaston         |
-| interactivity             | PythonPlot, Plotly(JS), InspectDR           |
-| beauty                    | GR, Plotly(JS), PGFPlots/ PGFPlotsX         |
-| REPL plotting             | UnicodePlots                                |
-| 3D plots                  | GR, PythonPlot, Plotly(JS), Gaston          |
-| a GUI window              | GR, PythonPlot, PlotlyJS, Gaston, InspectDR |
-| a small footprint         | UnicodePlots, Plotly                        |
-| backend stability         | PythonPlot, Gaston                          |
-| plot+data -> `.hdf5` file | HDF5                                        |
+| If you require...         | then use...                                      |
+| :------------------------ | :----------------------------------------------- |
+| features                  | GR, PythonPlot, Plotly(JS), Gaston               |
+| speed                     | GR, UnicodePlots, InspectDR, Gaston              |
+| interactivity             | PythonPlot, Plotly(JS), InspectDR, Bokeh         |
+| beauty                    | GR, Plotly(JS), PGFPlots/ PGFPlotsX, Bokeh       |
+| REPL plotting             | UnicodePlots                                     |
+| 3D plots                  | GR, PythonPlot, Plotly(JS), Gaston               |
+| a GUI window              | GR, PythonPlot, PlotlyJS, Gaston, InspectDR      |
+| a small footprint         | UnicodePlots, Plotly                             |
+| backend stability         | PythonPlot, Gaston                               |
+| plot+data -> `.hdf5` file | HDF5                                             |
 
 Of course this list is rather subjective and nothing in life is that simple. Likely there are subtle tradeoffs between backends, long hidden bugs, and more excitement. Don't be shy to try out something new !
 
@@ -516,9 +516,27 @@ My package which wraps PyQwt.  Similar to PyPlot, it uses PyCall to convert call
 
 Primary author: Thomas Breloff
 
-### [Bokeh](https://github.com/bokeh/Bokeh.jl)
+### [Bokeh](https://github.com/cjdoris/Bokeh.jl)
 
-Unfinished, but very similar to PlotlyJS... use that instead.
+A Julia package that wraps the [Bokeh](https://bokeh.org/) plotting library. Bokeh provides interactive, publication-quality plots in the browser using JavaScript (BokehJS).
+
+```julia
+bokeh(); backendplot()  #hide
+```
+
+Pros:
+
+- Interactive plots in the browser
+- Beautiful, publication-quality output
+- No Python dependency (wraps BokehJS directly)
+- Good for web applications
+
+Cons:
+
+- Limited feature set compared to mature backends
+- Work in progress
+
+Primary author: Christopher Doris (@cjdoris)
 
 ### [Winston](https://github.com/nolta/Winston.jl)
 
