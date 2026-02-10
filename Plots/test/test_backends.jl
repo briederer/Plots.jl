@@ -184,6 +184,25 @@ end
     end
 end
 
+@testset "Bokeh" begin
+    Plots.with(:bokeh) do
+        @test backend() == Plots.BokehBackend()
+        @test backend_name() === :bokeh
+        
+        # Basic plot test - just ensure it runs without error
+        pl = plot(rand(10))
+        @test pl isa Plot
+        
+        # Test scatter plot
+        pl = scatter(rand(10), rand(10))
+        @test pl isa Plot
+        
+        # Test line plot with labels
+        pl = plot([1, 2, 3], [1, 4, 9], label = "squares")
+        @test pl isa Plot
+    end
+end
+
 const blacklist = if VERSION.major == 1 && VERSION.minor ∈ (9, 10)
     [41]  # FIXME: github.com/JuliaLang/julia/issues/47261
 else
