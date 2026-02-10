@@ -117,7 +117,6 @@ const _bokeh_seriestype = [
     :path,
     :scatter,
     :line,
-    :shape,
 ]
 
 # Define supported markers
@@ -134,7 +133,7 @@ const _bokeh_marker = [
 const _bokeh_style = [:auto, :solid, :dash, :dot, :dashdot]
 
 # Define supported scales
-const _bokeh_scale = [:identity, :log, :log10]
+const _bokeh_scale = [:identity, :log10]
 
 # Check if marker is supported
 is_marker_supported(::BokehBackend, shape::Shape) = true

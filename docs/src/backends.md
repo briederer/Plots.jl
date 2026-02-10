@@ -533,8 +533,9 @@ Pros:
 
 Cons:
 
+- Currently supports basic line and scatter plots
+- Advanced features like 3D plotting, subplots, and complex annotations are not yet implemented
 - Limited feature set compared to mature backends
-- Work in progress
 
 Primary author: Christopher Doris (@cjdoris)
 
